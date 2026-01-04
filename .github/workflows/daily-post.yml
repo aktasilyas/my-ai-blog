@@ -1,0 +1,49 @@
+name: Daily AI Blog Post Generator
+
+on:
+  schedule:
+    # Her gün saat 09:00'da çalışır (UTC)
+    - cron: '0 9 * * *'
+  workflow_dispatch: # Manuel tetikleme için
+
+jobs:
+  generate-post:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate daily blog post
+        env:
+          GOOGLE_GEMINI_API_KEY: ${{ secrets.GOOGLE_GEMINI_API_KEY }}
+        run: npm run generate-post
+
+      - name: Commit and push new post
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          # Yeni dosyaları ekle
+          git add content/blog/*.mdx
+
+          # Değişiklik varsa commit yap
+          if git diff --staged --quiet; then
+            echo "No new post generated"
+          else
+            git commit -m "🤖 Otomatik günlük blog yazısı eklendi [skip ci]"
+            git push
+            echo "New post committed and pushed"
+          fi

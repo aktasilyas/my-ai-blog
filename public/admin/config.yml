@@ -1,0 +1,40 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/static/images/uploads"
+public_folder: "/static/images/uploads"
+
+locale: 'tr'
+
+collections:
+  - name: "blog"
+    label: "Blog Yazıları"
+    folder: "content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Başlık", name: "title", widget: "string" }
+      - { label: "Yayın Tarihi", name: "date", widget: "datetime" }
+      - { label: "Etiketler", name: "tags", widget: "list", required: false }
+      - { label: "Taslak", name: "draft", widget: "boolean", default: false, required: false }
+      - { label: "Özet", name: "summary", widget: "text", required: false }
+      - { label: "Kapak Görseli", name: "images", widget: "list", required: false }
+      - { label: "Yazarlar", name: "authors", widget: "list", default: ["default"], required: false }
+      - { label: "İçerik", name: "body", widget: "markdown" }
+
+  - name: "authors"
+    label: "Yazarlar"
+    folder: "content/authors"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "İsim", name: "name", widget: "string" }
+      - { label: "Avatar", name: "avatar", widget: "image", required: false }
+      - { label: "Meslek", name: "occupation", widget: "string", required: false }
+      - { label: "Şirket", name: "company", widget: "string", required: false }
+      - { label: "Email", name: "email", widget: "string", required: false }
+      - { label: "Twitter", name: "twitter", widget: "string", required: false }
+      - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }
+      - { label: "GitHub", name: "github", widget: "string", required: false }
+      - { label: "Biyografi", name: "body", widget: "markdown" }

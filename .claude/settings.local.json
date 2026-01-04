@@ -12,7 +12,10 @@
       "Bash(npm run dev:*)",
       "Bash(node scripts/update-roadmap.js:*)",
       "Bash(curl:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(dir:*)",
+      "Bash(if not exist \".github\\\\workflows\" mkdir \".github\\\\workflows\")",
+      "Bash(git commit:*)"
     ]
   }
 }
