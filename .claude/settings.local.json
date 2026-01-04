@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(cat:*)",
+      "Bash(if exist faq rd /s /q faq)",
+      "Bash(if exist .yarn rd /s /q .yarn)",
+      "Bash(if exist .yarnrc.yml del .yarnrc.yml)",
+      "Bash(npm install:*)",
+      "Bash(npm audit:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run dev:*)",
+      "Bash(node scripts/update-roadmap.js:*)",
+      "Bash(curl:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}
